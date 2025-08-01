@@ -21,19 +21,13 @@ def get_user_story() -> IUserStory:
 ##    client = AsyncIOMotorClient(os.getenv("MONGODB_URI"))
 ##    return MongoUserRepository(client)
 
-@router.get("/users", response_model=Response[UserResponse])
+@router.get("/users", response_model=Response[UserResponse], tags=[Tag])
 async def get_user(user_story: IUserStory = Depends(get_user_story)):
     
     return await user_story.get_user()
  
 @router.post(base, response_model=UserResponse, tags=[Tag])
 async def create_user(user: UserCreateRequest):
-    pass
-   # use_case = CreateUser(repo)
-   # return await use_case.execute(user)
-
-@router.post((base+"/pruebita"), response_model=UserResponse, tags=[Tag])
-async def create_user2(user: UserCreateRequest):
     pass
    # use_case = CreateUser(repo)
    # return await use_case.execute(user)
