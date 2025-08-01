@@ -1,20 +1,57 @@
-# from app.interfaces.userstorys.user_story import IUserStory
+from fastapi import HTTPException
+from app.models.response.card_response import CardResponse
 from app.models.response.customer_response import CustomerResponse
 from app.infra.api.response import Response
-from app.interfaces.database.base_repository import IBaseRepository
+from app.interfaces.database.unit_of_work import IUnitOfWork
 from app.interfaces.userstorys.customer_story import ICustomerStory
 from typing import List, Optional
 
-class CustomerStory(ICustomerStory):
-    def __init__(self, repo: IBaseRepository):
-       pass
-       #self.repo = repo
-       # self.customer_repo = MongoRepository(self.repo.collection, CustomerModel)
-    
-    async def get_customer(self, phone: Optional[str] = None) -> Response[List[CustomerResponse]]:
-       
-       # customer = await self.customer_repo.find_one({"_id": user_id}) if user_id else None
-        response = Response[List[CustomerResponse]]
+from app.infra.database.mongo_base_repository import MongoBaseRepository
+from app.models.atlasdb.customer_model import CustomerModel
 
-        result = Response.with_data(response)
-        return result
+class CustomerStory(ICustomerStory):
+   def __init__(self, unit_of_work: IUnitOfWork):
+      self._uow = unit_of_work
+      print("self._uow")
+      print(self._uow)
+
+   async def get_customer(self, phone: Optional[str] = None) -> Response[List[CustomerResponse]]:
+      
+      customerRepo: MongoBaseRepository[CustomerModel] = self._uow.get_repository(CustomerModel)
+      customers = await customerRepo.find_all()
+
+      try:
+
+         customer_response_list = [CustomerStory.to_customer_response(c) for c in customers]
+
+      except Exception as e:
+         raise HTTPException(status_code=500, detail=f"Error al mapear datos: {str(e)}")
+
+      return Response.with_data(customer_response_list)
+
+
+   # HELPERS
+   @staticmethod
+   def to_customer_response(customer: CustomerModel) -> CustomerResponse:
+      return CustomerResponse(
+         id=str(getattr(customer, "id", customer.id)),  # Asegura compatibilidad
+         whatsapp_number=customer.whatsapp_number,
+         email=customer.email,
+         name=customer.name,
+         last_name=customer.last_name,
+         birthdate=customer.birthdate,
+         gender=customer.gender,
+         status=customer.status,
+         brand=customer.brand,
+         card=[
+            CardResponse(
+                  card_number=card.card_number,
+                  level=card.level,
+                  points=card.points,
+                  expiration_date=card.expiration_date,
+                  is_enabled=card.is_enabled
+            )
+            for card in customer.card or []
+         ],
+         created=customer.created
+      )
