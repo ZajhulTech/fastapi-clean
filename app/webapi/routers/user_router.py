@@ -15,7 +15,7 @@ base = "/users"
 Tag = "Users"
 
 def get_user_story() -> IUserStory:
-    return UserStory()
+    return UserStory(None)
 
 ##def get_user_repo():
 ##    client = AsyncIOMotorClient(os.getenv("MONGODB_URI"))
