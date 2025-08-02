@@ -6,7 +6,7 @@ from app.userstorys.customer_story import CustomerStory
 from app.interfaces.userstorys.customer_story import ICustomerStory
 from app.infra.api.response_utils import get_response, get_custom_response
 from app.infra.api.response import Response
-from app.infra.database.mongo_unit_of_work import MongoUnitOfWork
+from app.infra.mongodb.mongo_unit_of_work import MongoUnitOfWork
 from dotenv import load_dotenv
 import os
 

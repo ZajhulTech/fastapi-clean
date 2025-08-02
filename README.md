@@ -1,76 +1,106 @@
 
 # FastAPI Clean Architecture Project
 
-Este proyecto sigue una arquitectura limpia usando FastAPI y MongoDB.
+Este proyecto implementa una arquitectura limpia utilizando **FastAPI** y **MongoDB** como base de datos, facilitando el mantenimiento, escalabilidad y separación de responsabilidades.
+
+---
+
+## 🧠 Arquitectura
+
+El proyecto sigue los principios de **Clean Architecture**, dividiendo la lógica en capas bien definidas:
+
+```
+app/
+├── infra/                  # Infraestructura (API, MongoDB, respuestas)
+├── interfaces/             # Contratos y puentes entre capas (repositories, unit of work, user stories)
+├── models/                 # Modelos de datos (AtlasDB, request, response)
+├── userstorys/             # Casos de uso / lógica de negocio
+```
+
+---
 
 ## ✅ PASO 1: Instalar dependencias de Python
 
-Recomiendo crear un entorno virtual:
+Crea un entorno virtual e instala las dependencias necesarias:
 
 ```bash
 python -m venv venv
 source venv/bin/activate      # en Unix/Mac
 venv\Scripts\activate       # en Windows
-```
 
-Luego instala las dependencias:
-
-```bash
 pip install -r requirements.txt
 ```
 
-## ✅ PASO 2: Ejecutar FastAPI
+---
 
-Ubícate en la raíz del proyecto (donde está `requirements.txt`) y ejecuta:
+## 🚀 PASO 2: Ejecutar FastAPI
 
-```bash
-uvicorn app.webapi.main:app --reload
-```
-
-Si todo está correcto verás algo como:
-
-```
-Uvicorn running on http://127.0.0.1:8000
-```
-
-Puedes acceder a:
-
-- Documentación interactiva: http://localhost:8000/docs
-- OpenAPI JSON: http://localhost:8000/openapi.json
-
-
-
-## ✅ EXTRAS: Levantar MongoDB con Docker
-
-### 2.1 Verificar Docker
-
-Asegúrate de tener Docker instalado y corriendo:
+Ubícate en la raíz del proyecto y ejecuta:
 
 ```bash
-docker --version
+uvicorn app.infra.api.main:app --reload
 ```
 
-### 2.2 Levantar MongoDB
+Esto levanta la API y puedes acceder a la documentación interactiva en:
 
+- http://127.0.0.1:8000/docs
 
-Desde la terminal, ubícate dentro del proyecto:
+---
+
+## 🐳 Uso con Docker
+
+Este proyecto incluye un `docker-compose.yml` para levantar servicios fácilmente.
+
+### Levantar los servicios:
+```bash
+docker-compose up --build
+```
+
+### Detener los servicios:
+```bash
+docker-compose down
+```
+
+---
+
+## 🧪 Testing
+
+> Por implementar
 
 ```bash
-cd fastapi-clean
-docker-compose up -d
+pytest
 ```
 
-Esto debería levantar un contenedor con MongoDB escuchando en `localhost:27017`.
+---
 
-Verifica con:
+## 📂 Estructura de carpetas (detallada)
 
-```bash
-docker ps
-```
+- `app/infra/api/` - Controladores de API y respuestas HTTP
+- `app/infra/mongodb/` - Repositorios e implementación con MongoDB
+- `app/interfaces/` - Interfaces base para UnitOfWork y Repositorios
+- `app/models/` - Modelos de entidades, DTOs para request y response
+- `app/userstorys/` - Casos de uso / lógica de negocio (Application Layer)
 
-Deberías ver algo como:
+---
 
-```
-CONTAINER ID   IMAGE     ...   PORTS
-...            mongo     ...   0.0.0.0:27017->27017/tcp
-```
+## 📌 Tecnologías utilizadas
+
+- Python 3.10+
+- FastAPI
+- MongoDB
+- Pydantic
+- Uvicorn
+- Docker / Docker Compose
+
+---
+
+## 🧑‍💻 Autor
+
+Desarrollado por Saúl Dueñas B. 
+© 2025
+
+---
+
+## 📝 Licencia
+
+Este proyecto está bajo la licencia MIT. Consulta el archivo `LICENSE` para más detalles.

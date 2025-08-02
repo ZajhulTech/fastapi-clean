@@ -6,15 +6,13 @@ from app.interfaces.database.unit_of_work import IUnitOfWork
 from app.interfaces.userstorys.customer_story import ICustomerStory
 from typing import List, Optional
 
-from app.infra.database.mongo_base_repository import MongoBaseRepository
+from app.infra.mongodb.mongo_base_repository import MongoBaseRepository
 from app.models.atlasdb.customer_model import CustomerModel
 
 class CustomerStory(ICustomerStory):
    def __init__(self, unit_of_work: IUnitOfWork):
       self._uow = unit_of_work
-      print("self._uow")
-      print(self._uow)
-
+    
    async def get_customer(self, phone: Optional[str] = None) -> Response[List[CustomerResponse]]:
       
       customerRepo: MongoBaseRepository[CustomerModel] = self._uow.get_repository(CustomerModel)

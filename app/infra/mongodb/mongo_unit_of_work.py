@@ -1,7 +1,7 @@
 from typing import Dict, Type, TypeVar, Generic
 from motor.motor_asyncio import AsyncIOMotorClient
-from app.infra.database.mongo_base_repository import MongoBaseRepository
-from app.infra.database.mongo_base_model import MongoBaseModel
+from app.infra.mongodb.mongo_base_repository import MongoBaseRepository
+from app.infra.mongodb.mongo_base_model import MongoBaseModel
 
 T = TypeVar("T", bound=MongoBaseModel)
 
