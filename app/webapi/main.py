@@ -10,8 +10,8 @@ app = FastAPI(
 )
 
 # Registrar handlers globales
-app.add_exception_handler(HTTPException, http_exception_handler)
-app.add_exception_handler(Exception, unhandled_exception_handler)
+#app.add_exception_handler(HTTPException, http_exception_handler)
+#app.add_exception_handler(Exception, unhandled_exception_handler)
 
 app.include_router(user_router.router)
 app.include_router(customer_router.router)

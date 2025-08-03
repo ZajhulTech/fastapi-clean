@@ -33,4 +33,3 @@ def get_user_story(uow = Depends(get_unit_of_work)) -> ICustomerStory:
 async def get_customer(user_story: ICustomerStory = Depends(get_user_story)):
     
     return await user_story.get_customer()
- 

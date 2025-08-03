@@ -39,7 +39,7 @@ pip install -r requirements.txt
 Ubícate en la raíz del proyecto y ejecuta:
 
 ```bash
-uvicorn app.infra.api.main:app --reload
+uvicorn app.webapi.main:app --reload
 ```
 
 Esto levanta la API y puedes acceder a la documentación interactiva en:
@@ -81,6 +81,22 @@ pytest
 - `app/interfaces/` - Interfaces base para UnitOfWork y Repositorios
 - `app/models/` - Modelos de entidades, DTOs para request y response
 - `app/userstorys/` - Casos de uso / lógica de negocio (Application Layer)
+
+---
+
+
+## 📂 Protegiendo Rutas (detallada)
+```python
+from fastapi import APIRouter
+from infra.security.authorization import Authorize
+
+router = APIRouter()
+
+@router.get("/products")
+@Authorize("products:view")
+def list_products(user):
+    return {"user": user, "msg": "Lista de productos"}
+```
 
 ---
 
