@@ -1,6 +1,7 @@
 
 # FastAPI Clean Architecture Project
-
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-%20green)
 Este proyecto implementa una arquitectura limpia utilizando **FastAPI** y **MongoDB** como base de datos, facilitando el mantenimiento, escalabilidad y separación de responsabilidades.
 
 ---
@@ -103,4 +104,5 @@ Desarrollado por Saúl Dueñas B.
 
 ## 📝 Licencia
 
+![License](https://img.shields.io/badge/License-MIT-green.svg)
 Este proyecto está bajo la licencia MIT. Consulta el archivo `LICENSE` para más detalles.
