@@ -50,14 +50,26 @@ Esto levanta la API y puedes acceder a la documentación interactiva en:
 
 ## 🐳 Uso con Docker
 
-Este proyecto incluye un `docker-compose.yml` para levantar servicios fácilmente.
+Este proyecto incluye un Dockerfile y un docker-compose.yml para facilitar la ejecución de la aplicación FastAPI bajo una arquitectura limpia.
+🔐 Nota: Este proyecto utiliza MongoDB Atlas, por lo que no es necesario levantar un contenedor local de MongoDB.
+🛠️ Requisitos
+Docker
 
-### Levantar los servicios:
+Docker Compose
+
+Un archivo .env con la variable MONGO_URI apuntando a tu instancia de MongoDB Atlas.
+
+Ejemplo de .env:
+```
+MONGO_URI=mongodb+srv://<usuario>:<password>@<cluster>.mongodb.net/<basededatos>
+```
+
+### 🚀 Levantar la aplicación
 ```bash
 docker-compose up --build
 ```
 
-### Detener los servicios:
+### 🛑 Detener los servicios
 ```bash
 docker-compose down
 ```

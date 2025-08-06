@@ -1,12 +1,14 @@
-version: '3'
-services:
-  mongodb:
-    image: mongo
-    container_name: mongo
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo_data:/data/db
+version: '3.8'
 
-volumes:
-  mongo_data:
+services:
+  api:
+    build: .
+    container_name: fastapi-clean-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - MONGO_URI=${MONGO_URI}
+    env_file:
+      - .env
